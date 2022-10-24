@@ -36,7 +36,12 @@ const Login = () => {
                   userId: idRef.current.value,
                   password: pwRef.current.value,
                 };
-                axios.post('http://tunamayo.shop/users/login', login);
+                axios
+                  .post('http://tunamayo.shop/users/login', login)
+                  .then((res) => {
+                    console.log(res.data.token);
+                    localStorage.setItem('token', res.data.token);
+                  });
               }}
               className="px-5 py-3 mt-3 text-lg text-white bg-blue-400 rounded-lg focus:outline-none hover:opacity-90"
             >
