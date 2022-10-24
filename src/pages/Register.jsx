@@ -44,7 +44,7 @@ const Register = () => {
     if (checkCount === 0) {
       return alert('아이디 중복검사를 확인해주세요');
     } else {
-      axios.post('https://tunamayo.shop/users/signup', userRegister);
+      axios.post('https://chamchimayo.shop/users/signup', userRegister);
       //navigate('/');
     }
   };

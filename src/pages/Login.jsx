@@ -43,7 +43,7 @@ const Login = () => {
                   password: pwRef.current.value,
                 };
                 axios
-                  .post('https://tunamayo.shop/users/login', login)
+                  .post('https://chamchimayo.shop/users/login', login)
                   .then((res) => {
                     console.log(res.data.token);
                     localStorage.setItem('token', res.data.token);
