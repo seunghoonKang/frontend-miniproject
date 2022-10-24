@@ -50,16 +50,16 @@ const Register = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center h-screen ">
-      <h1 className=" font-bold text-5xl text-blue-500 mb-6">회원가입</h1>
-      <form onSubmit={onSubmitHandler} className="w-full  max-w-lg">
+    <section className="flex flex-col items-center justify-center h-screen ">
+      <h1 className="mb-6 text-5xl font-bold text-blue-500 ">회원가입</h1>
+      <form onSubmit={onSubmitHandler} className="w-full max-w-lg">
         {/* 아이디 */}
         {/* 서버에 동일한 아이디가 있는지 확인해야돼 */}
-        <div className="flex flex-wrap justify-between  -mx-3 mb-6">
-          <div className=" w-3/4  px-3">
+        <div className="flex flex-wrap justify-between mb-6 -mx-3">
+          <div className="w-3/4 px-3 ">
             <label
               htmlFor="userId"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               아이디
             </label>
@@ -73,10 +73,10 @@ const Register = () => {
               name="userId"
               placeholder="아이디를 입력해주세요."
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
             ></input>
           </div>
-          <div className=" mt-6 mb-6 ml-0 mr-2">
+          <div className="mt-6 mb-6 ml-0 mr-2 ">
             <button
               type="button"
               value={checkCount}
@@ -90,7 +90,7 @@ const Register = () => {
             {userRegister.userId.length === 0 ? (
               <></>
             ) : !regId.test(userRegister.userId) ? (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-xs italic text-red-500">
                 영문자로 시작하는 영문자 또는 숫자 6~20자
               </p>
             ) : (
@@ -100,11 +100,11 @@ const Register = () => {
         </div>
 
         {/* 비밀번호 */}
-        <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="flex flex-wrap mb-6 -mx-3">
           <div className="w-full px-3">
             <label
               htmlFor="password"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               비밀번호
             </label>
@@ -117,10 +117,10 @@ const Register = () => {
               name="password"
               placeholder="비밀번호를 입력해주세요."
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
             ></input>
             {userRegister.password.length > 11 ? (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-xs italic text-red-500">
                 최대 12자까지 가능합니다.
               </p>
             ) : (
@@ -130,11 +130,11 @@ const Register = () => {
         </div>
 
         {/* 비밀번호 확인 */}
-        <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="flex flex-wrap mb-6 -mx-3">
           <div className="w-full px-3">
             <label
               htmlFor="confirmPw"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               비밀번호 확인
             </label>
@@ -147,16 +147,16 @@ const Register = () => {
               name="confirmPw"
               placeholder="비밀번호를 한번 더 확인해주세요."
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
             ></input>
             {userRegister.password !== userRegister.confirmPw &&
             userRegister.confirmPw.length >= 1 ? (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-xs italic text-red-500">
                 동일한 비밀번호를 입력해주세요
               </p>
             ) : userRegister.confirmPw.trim() !== '' &&
               !regPassword.test(userRegister.password) ? (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-xs italic text-red-500">
                 최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자가
                 되어야 합니다.
               </p>
@@ -167,11 +167,11 @@ const Register = () => {
         </div>
 
         {/* 닉네임 */}
-        <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="flex flex-wrap mb-6 -mx-3">
           <div className="w-full px-3">
             <label
               htmlFor="nickname"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               닉네임
             </label>
@@ -183,17 +183,17 @@ const Register = () => {
               name="nickname"
               placeholder="닉네임을 입력해주세요."
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
             ></input>
           </div>
         </div>
 
         {/* 성별 */}
-        <div className="flex flex-row flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <div className="flex flex-row flex-wrap mb-2 -mx-3">
+          <div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
             <label
               htmlFor="gender"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               성별
             </label>
@@ -203,7 +203,7 @@ const Register = () => {
                 id="gender"
                 name="gender"
                 required
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="">선택</option>
                 <option value="0">남</option>
@@ -213,10 +213,10 @@ const Register = () => {
           </div>
 
           {/* 나이 */}
-          <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+          <div className="w-full px-3 mb-6 md:w-2/3 md:mb-0">
             <label
               htmlFor="age"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
             >
               나이
             </label>
@@ -228,13 +228,13 @@ const Register = () => {
               name="age"
               placeholder="나이를 입력해주세요."
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
             ></input>
           </div>
         </div>
 
         <div className=" md:flex md:justify-center">
-          <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-400 focus:shadow-outline focus:outline-none">
             회원가입하기
           </button>
         </div>

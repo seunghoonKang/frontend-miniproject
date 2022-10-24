@@ -19,7 +19,7 @@ const Login = () => {
               className="px-5 py-3 mb-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600"
             />
             <input
-              type="current-password"
+              type="password"
               ref={pwRef}
               placeholder="PW "
               className="px-5 py-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600"
