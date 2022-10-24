@@ -31,7 +31,7 @@ const Login = () => {
 
               <div className="mx-3 text-blue-600">
                 <button onClick={() => navigate('/register')}>
-                  회원가입하러 가기
+                  회원가입 하기
                 </button>
               </div>
             </div>
