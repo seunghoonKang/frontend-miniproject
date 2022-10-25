@@ -10,7 +10,7 @@ function Home() {
     lng: 127.0276188,
   }); //useState로 위도, 경도의 기본값을 서울특별시 강남구로 지정해 두었다.
 
-  const navigator = useNavigate();
+  const navigater = useNavigate();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -26,10 +26,15 @@ function Home() {
       });
     }
     function error() {
-      setMyLocation({ latitude: 37.4979517, longitude: 127.0276188 });
+      setMyLocation({ lat: 37.4979517, lng: 127.0276188 });
     } //에러 났을때 위치임
   }, []);
-  console.log(myLocation);
+  console.log(
+    'myLocation.lat',
+    myLocation.lat,
+    'myLocation.lng',
+    myLocation.lng
+  );
 
   useEffect(() => {
     const { naver } = window;
@@ -72,7 +77,7 @@ function Home() {
             .then((res) => {
               setItemList(res.data.items.item);
               // 이건 백엔드에서 준 서버야 ~
-              console.log(res);
+              console.log(res.data.items);
             });
         }
       );
@@ -104,7 +109,7 @@ function Home() {
             <div key={items.hpid} className="pb-8">
               <button
                 onClick={() => {
-                  navigator(`/Detail/${items.hpid}`);
+                  navigater(`/detail/${items.hpid}`);
                 }}
                 className="px-4 pt-1 pb-2 text-blue-500 bg-blue-200 rounded-t-lg hover:bg-blue-300"
               >
