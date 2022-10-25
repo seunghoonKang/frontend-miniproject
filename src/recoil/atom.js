@@ -12,4 +12,9 @@ let inputState = atom({
   default: 0,
 });
 
-export { loginState, inputState };
+let pharmacyWorking = atom({
+  key: 'pharmacyWorking',
+  default: '',
+});
+
+export { loginState, inputState, pharmacyWorking };

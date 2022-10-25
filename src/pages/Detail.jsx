@@ -1,113 +1,66 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useRecoilState, selector } from 'recoil';
-import { loginState } from '../recoil/atom';
-import { FiChevronLeft } from 'react-icons/fi';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, selector, useSetRecoilState } from 'recoil';
+import { pharmacyWorking } from '../recoil/atom';
+import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import Home from './Home';
 import NaverMapAPI from '../components/NaverMap';
+import WorkingDay from '../components/WorkingDay';
 
 const Detail = () => {
   const { id } = useParams();
-  const [myLocation, setMyLocation] = useState({
-    lat: 37.4979517,
-    lng: 127.0276188,
-  });
-
-  //   $(document).ready(async function () {
-  // let XY = await getLocation();
-
-  // $.ajax({
-  // url: "/pharmacyList",
-  // type: "GET",
-  // cache: false,
-  // dataType: "json",
-  // data: {
-  // Q0: sido,
-  // Q1: gugun,
-  // QT: "1~8",
-  // QN: "",
-  // ORD: "",
-  // pageNo: "1",
-  // numOfRows: "1000",}
+  const navigate = useNavigate();
+  const [working, setWorking] = useState('');
+  const setpharmacyWK = useSetRecoilState(pharmacyWorking);
 
   //약국 한 개 가져오기
-  // const pharmacy = axios
-  //   .get(`http://tunamayo.shop/pharmacyList?lat=${위도}&lng=${경도}`)
-  //   .then((res) => console.log(res));
-  // console.log(pharmacy);
-  const [test, setTest] = useRecoilState(loginState);
-
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-    function success(pos) {
-      let crd = pos.coords;
-      setMyLocation({
-        lat: crd.latitude,
-        lng: crd.longitude,
-      });
-    }
-    function error() {
-      setMyLocation({ lat: 37.4979517, lng: 127.0276188 });
-    }
+    axios
+      .get(`https://chamchimayo.shop/pharmacyList/C2109236`)
+      .then((res) => setWorking(res.data.item));
+    setpharmacyWK(working);
   }, []);
-  console.log(
-    'myLocation.lat',
-    myLocation.lat,
-    'myLocation.lng',
-    myLocation.lng
-  );
-
-  useEffect(() => {
-    const { naver } = window;
-    async function reverseGeo() {
-      await naver.maps.Service.reverseGeocode(
-        {
-          location: new naver.maps.LatLng(myLocation.lat, myLocation.lng),
-        },
-        function (status, response) {
-          let result = response.result;
-          let items = result.items;
-          let sido_arr = items[0].addrdetail.sido.split(' '); // 시도
-          let gugun_arr = items[0].addrdetail.sigugun.split(' '); // 시구군
-          let sido = undefined;
-          let gugun = undefined;
-          if (sido_arr.length == 1) {
-            console.log('here comes');
-            sido = sido_arr[0];
-            gugun = gugun_arr[0];
-            console.log(sido, gugun);
-          } else if (sido_arr.length > 1) {
-            console.log('here!!!!!!!!!!!!');
-            sido = gugun_arr[0];
-            gugun = gugun_arr[1];
-            console.log(sido, gugun);
-          }
-
-          if (status === naver.maps.Service.Status.ERROR) {
-            alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰');
-          }
-        }
-      );
-    }
-    reverseGeo();
-  }, [myLocation]);
+  //console.log(working);
+  //const { dutyTime1c: 월요일 } = working;
+  //console.log(pharmacyWk);
+  //console.log(working.dutyTime1s, working.dutyTime1c);
 
   return (
     <div>
       <Home />
-      <div className="w-full max-w-lg bg-slate-500 m-auto">
-        <div className=" sticky">
-          <FiChevronLeft size="30" />
+      <div className="w-full max-w-lg  m-auto ">
+        <div className="px-5 py-3 pt-3 pr-5 bg-white sticky z-10 top-0">
+          <BsFillArrowLeftSquareFill size="30" className=" ml-1" />
+          <span className=" text-xs">뒤로가기</span>
         </div>
-        <section>
-          <h1 className="text-2xl font-bold mb-4 mt-2.5">약국이름</h1>
+        <section className="p-5">
+          <h1 className="text-2xl font-bold mb-4 mt-2.5">{working.dutyName}</h1>
           <NaverMapAPI />
-          <div className="text-sm mb-1">경기도 안양시리야 응답해</div>
+          <div className="text-sm mb-1">{working.dutyAddr}</div>
         </section>
-        {test}
+        <section className="p-5">
+          <div>
+            <button className=" border-solid border-b-2 border-black-100 pb-3">
+              <span className="font-bold text-sm">약국정보</span>
+            </button>
+          </div>
+        </section>
+        <section className="p-5">
+          <div className=" text-sm mt-1 mb-5">
+            <h1 className="text-lg font-bold">영업 시간</h1>
+          </div>
+          <div>
+            <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
+              <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+                화요일
+              </div>
+              <div className="text-base text-slate-50">09:00 ~ 20:00</div>
+            </div>
+          </div>
+        </section>
+        <WorkingDay />
+        {/* {test} */}
       </div>
     </div>
   );

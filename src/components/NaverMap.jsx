@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
-
+import markerImage from '../img/pill.png';
 const NaverMapAPI = () => {
   useEffect(() => {
     const initMap = () => {
@@ -16,20 +16,19 @@ const NaverMapAPI = () => {
         minZoom: 13,
         zoomControl: true,
         zoomControlOptions: {
+          style: naver.maps.ZoomControlStyle.SMALL,
           position: naver.maps.Position.TOP_RIGHT,
         },
       };
 
       const map = new naver.maps.Map('map', mapOptions);
 
-      const ICON_IMAGE_URL = '../img/pill.png';
-
       const markerOptions = {
         position: location,
         map: map,
         icon: {
-          url: ICON_IMAGE_URL,
-          // size: new naver.maps.Size(22, 35),
+          url: markerImage,
+          // size: new naver.maps.Size(150, 150),
           // origin: new naver.maps.Point(0, 0),
           // anchor: new naver.maps.Point(11, 35),
         },
@@ -37,12 +36,12 @@ const NaverMapAPI = () => {
       const marker = new naver.maps.Marker(markerOptions);
     };
     initMap();
-  }, []);
+  });
 
   //https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-Marker.html 왜 아이콘 안바껴!!!!!!!!
   return (
     <>
-      <div id="map" style={{ minHeight: '400px' }} />
+      <div id="map" style={{ minHeight: '200px', margin: '30px 0 20px 0' }} />
     </>
   );
 };
