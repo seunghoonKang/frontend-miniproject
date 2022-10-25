@@ -9,7 +9,27 @@ import NaverMapAPI from '../components/NaverMap';
 
 const Detail = () => {
   const { id } = useParams();
-  const [myLocation, setMyLocation] = useState('');
+  const [myLocation, setMyLocation] = useState({
+    lat: 37.4979517,
+    lng: 127.0276188,
+  });
+
+  //   $(document).ready(async function () {
+  // let XY = await getLocation();
+
+  // $.ajax({
+  // url: "/pharmacyList",
+  // type: "GET",
+  // cache: false,
+  // dataType: "json",
+  // data: {
+  // Q0: sido,
+  // Q1: gugun,
+  // QT: "1~8",
+  // QN: "",
+  // ORD: "",
+  // pageNo: "1",
+  // numOfRows: "1000",}
 
   //약국 한 개 가져오기
   // const pharmacy = axios
@@ -30,10 +50,51 @@ const Detail = () => {
       });
     }
     function error() {
-      setMyLocation({ latitude: 37.4979517, longitude: 127.0276188 });
+      setMyLocation({ lat: 37.4979517, lng: 127.0276188 });
     }
   }, []);
-  console.log(myLocation);
+  console.log(
+    'myLocation.lat',
+    myLocation.lat,
+    'myLocation.lng',
+    myLocation.lng
+  );
+
+  useEffect(() => {
+    const { naver } = window;
+    async function reverseGeo() {
+      await naver.maps.Service.reverseGeocode(
+        {
+          location: new naver.maps.LatLng(myLocation.lat, myLocation.lng),
+        },
+        function (status, response) {
+          let result = response.result;
+          let items = result.items;
+          let sido_arr = items[0].addrdetail.sido.split(' '); // 시도
+          let gugun_arr = items[0].addrdetail.sigugun.split(' '); // 시구군
+          let sido = undefined;
+          let gugun = undefined;
+          if (sido_arr.length == 1) {
+            console.log('here comes');
+            sido = sido_arr[0];
+            gugun = gugun_arr[0];
+            console.log(sido, gugun);
+          } else if (sido_arr.length > 1) {
+            console.log('here!!!!!!!!!!!!');
+            sido = gugun_arr[0];
+            gugun = gugun_arr[1];
+            console.log(sido, gugun);
+          }
+
+          if (status === naver.maps.Service.Status.ERROR) {
+            alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰');
+          }
+        }
+      );
+    }
+    reverseGeo();
+  }, [myLocation]);
+
   return (
     <div>
       <Home />
@@ -42,8 +103,9 @@ const Detail = () => {
           <FiChevronLeft size="30" />
         </div>
         <section>
-          <h1 className="text-2xl font-bold mb-4 mt-2.5">dutyName</h1>
+          <h1 className="text-2xl font-bold mb-4 mt-2.5">약국이름</h1>
           <NaverMapAPI />
+          <div className="text-sm mb-1">경기도 안양시리야 응답해</div>
         </section>
         {test}
       </div>
