@@ -3,20 +3,69 @@ import { AiFillHome } from 'react-icons/ai';
 import axios from 'axios';
 
 function Home() {
-  axios.get('http://localhost:3001/items').then((res) => {
-    console.log(res.data.item);
-    localStorage.setItem('token', res.data.item);
+  axios.get('https://chamchimayo.shop/pharmacyList').then((res) => {
+    console.log(res.data.items.item);
+    localStorage.setItem('token', res.data.items.item);
   });
 
-  function onGeoOkay(position) {
-    console.log(position);
-  }
+  const [myLocation, setMyLocation] = useState('');
 
-  function onGeoError() {
-    alert("I can't find you. no weather for you.");
-  }
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+    function success(pos) {
+      let crd = pos.coords;
+      setMyLocation({
+        lat: crd.latitude,
+        lng: crd.longitude,
+      });
+    }
+    function error() {
+      setMyLocation({ latitude: 37.4979517, longitude: 127.0276188 });
+    }
+  }, []);
+  console.log(myLocation);
 
-  navigator.geolocation.getCurrentPosition(onGeoOkay, onGeoError);
+  // navigator.geolocation.getCurrentPosition(onGeoOkay, onGeoError);
+
+  // $(position).ready(async function () {
+  //     let XY = await getLocation();
+
+  //     await naver.maps.Service.reverseGeocode(
+  //     {
+  //     location: new naver.maps.LatLng(XY.lat, XY.lng),
+  //     },
+  //     function (status, response) {
+  //     let result = response.result;
+  //     let items = result.items;
+
+  //   let sido_arr = items[0].addrdetail.sido.split(" "); // 시도
+  //   let gugun_arr = items[0].addrdetail.sigugun.split(" "); // 시구군
+
+  //   if (sido_arr.length == 1) {
+  //   console.log("here comes");
+  //   sido = sido_arr[0];
+  //   gugun = gugun_arr[0];
+  //   } else if (sido_arr.length > 1) {
+  //   console.log("here!!!!!!!!!!!!");
+  //   sido = gugun_arr[0];
+  //   gugun = gugun_arr[1];
+  //   }
+
+  //   $.ajax({
+  //   url: "/pharmacyList",
+  //   type: "GET",
+  //   cache: false,
+  //   dataType: "json",
+  //   data: {
+  //   Q0: sido,
+  //   Q1: gugun,
+  //   QT: "1~8",
+  //   QN: "",
+  //   ORD: "",
+  //   pageNo: "1",
+  //   numOfRows: "1000",
 
   return (
     <div>
@@ -46,3 +95,41 @@ function Home() {
 }
 
 export default Home;
+
+// $(document).ready(async function () {
+//   let XY = await getLocation();
+
+//   await naver.maps.Service.reverseGeocode(
+//   {
+//   location: new naver.maps.LatLng(XY.lat, XY.lng),
+//   },
+//   function (status, response) {
+//   let result = response.result;
+//   let items = result.items;
+
+//   let sido_arr = items[0].addrdetail.sido.split(" "); // 시도
+//   let gugun_arr = items[0].addrdetail.sigugun.split(" "); // 시구군
+
+//   if (sido_arr.length == 1) {
+//   console.log("here comes");
+//   sido = sido_arr[0];
+//   gugun = gugun_arr[0];
+//   } else if (sido_arr.length > 1) {
+//   console.log("here!!!!!!!!!!!!");
+//   sido = gugun_arr[0];
+//   gugun = gugun_arr[1];
+//   }
+
+//   $.ajax({
+//   url: "/pharmacyList",
+//   type: "GET",
+//   cache: false,
+//   dataType: "json",
+//   data: {
+//   Q0: sido,
+//   Q1: gugun,
+//   QT: "1~8",
+//   QN: "",
+//   ORD: "",
+//   pageNo: "1",
+//   numOfRows: "1000",
