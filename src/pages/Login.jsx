@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import axios from 'axios'; // axios import 합니다.
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { __postSeung } from '../store/modules/seungSlice';
 
 const Login = () => {
   const idRef = useRef('');
@@ -49,9 +48,6 @@ const Login = () => {
                   userId: idRef.current.value,
                   password: pwRef.current.value,
                 };
-
-                console.log(login);
-                dispatch(__postSeung(login.userId));
 
                 axios
                   .post('https://chamchimayo.shop/users/login', login)
