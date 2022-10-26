@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import { useDispatch } from 'react-redux';
+import { __deleteSeung } from '../store/modules/seungSlice';
 
 const See = () => {
   const token = localStorage.getItem('token');
   const [working, setWorking] = useState('');
+  const dispatch = useDispatch();
   axios
     .get(`https://chamchimayo.shop/users`, {
       headers: {
@@ -34,7 +37,10 @@ const See = () => {
               나이 : {working.age}
             </p>
           </form>
-          <button className="py-3 mt-3 mr-5 text-lg text-white bg-red-500 rounded-lg px-7 focus:outline-none hover:opacity-90">
+          <button
+            onClick={() => dispatch(__deleteSeung(working))}
+            className="py-3 mt-3 mr-5 text-lg text-white bg-red-500 rounded-lg px-7 focus:outline-none hover:opacity-90"
+          >
             회원 탈퇴
           </button>
           <button className="px-3 py-3 mt-3 ml-5 text-lg text-white bg-blue-500 rounded-lg focus:outline-none hover:opacity-90">
