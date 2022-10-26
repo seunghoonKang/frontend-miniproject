@@ -14,7 +14,7 @@ const Register = () => {
 
   const [checkRegister, setCheckRegister] = useState(false);
   const [checkCount, setCheckCount] = useState(0);
-  const [errCheck, setErrCheck] = useState();
+  const [errCheck, setErrCheck] = useState(null);
   const [userRegister, setUserRegister] = useState({
     userId: '',
     password: '',
@@ -27,18 +27,16 @@ const Register = () => {
   const checkDuplicate = (e) => {
     e.preventDefault();
     setCheckCount(() => checkCount + 1);
-    console.log(userRegister.userId);
     axios
-      .post(
-        'https://chamchimayo.shop/users/checkDuplicatedId',
-        userRegister.userId
-      )
-      .then((res) => console.log(res));
-    userRegister.userId.trim() === ''
-      ? alert('아이디를 입력해주세요')
-      : userRegister.userId === '' //data.get userId 전체조회?
-      ? alert('중복입니다')
-      : alert('사용할 수 있는 아이디입니다.');
+      .post('https://chamchimayo.shop/users/checkDuplicatedId', {
+        userId: userRegister.userId,
+      })
+      .then((res) => alert(res.data.message))
+      .catch(function (error) {
+        if (error.response) {
+          alert(error.response.data.errorMessage);
+        }
+      });
   };
 
   const onChangeHandler = (e) => {
@@ -48,15 +46,22 @@ const Register = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(userRegister);
     if (checkCount === 0) {
       return alert('아이디 중복검사를 확인해주세요');
     } else {
       axios
         .post('https://chamchimayo.shop/users/signup', userRegister)
-        .then((res) => setErrCheck(res.data));
-      console.log(errCheck);
-      //navigate('/');
+        .then((res) => {
+          if (res.status === 201) {
+            alert(res.data);
+            navigate('/');
+          }
+        })
+        .catch(function (error) {
+          if (error.response) {
+            alert(error.response.data.errorMessage);
+          }
+        });
     }
   };
 
