@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillHome } from 'react-icons/ai';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Home() {
   const [itemList, setItemList] = useState([]);
@@ -9,9 +9,7 @@ function Home() {
     lat: 37.4979517,
     lng: 127.0276188,
   }); //useState로 위도, 경도의 기본값을 서울특별시 강남구로 지정해 두었다.
-
   const navigater = useNavigate();
-
   useEffect(() => {
     if (navigator.geolocation) {
       //navigator은 사용자의 상태와 신원정보 조회(읽기전용) // geolocation 사용자 위치 검색
@@ -35,7 +33,6 @@ function Home() {
     'myLocation.lng',
     myLocation.lng
   );
-
   useEffect(() => {
     const { naver } = window;
     async function reverseGeo() {
@@ -65,11 +62,9 @@ function Home() {
             gugun = gugun_arr[1]; // gugu gugun_arr[1] 그거에 두번째 인덱스
             console.log(sido, gugun); //시도랑 군을 찍는다.
           }
-
           if (status === naver.maps.Service.Status.ERROR) {
             alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰');
           } //주소 잘못요청하면 서버에 오류가 뜰 경우에는 이렇게 뜸
-
           axios
             .get(
               `https://chamchimayo.shop/pharmacyList?Q0=${sido}&Q1=${gugun}&QT=1~8&pageNo=1&numOfRows=1000`
@@ -84,22 +79,11 @@ function Home() {
     }
     reverseGeo();
   }, [myLocation]); //위도 경도를 찾을때만 useEffectㅇ 실행
-
   // navigator.geolocation.getCurrentPosition(onGeoOkay, onGeoError);
   //state 에 넣어서 사용함 slecter에 데이터 넣어서 처리하는것도 가능함
   return (
     <div>
-      <header className="w-[99%] h-14 m-1.5 border-solid border-[1px] rounded-md border-gray-400 ">
-        <div className="flex px-10">
-          <div className="flex-auto py-4 text-xl text-blue-400">
-            <AiFillHome />
-          </div>
-
-          <h1 className="flex-auto py-3 text-xl font-bold text-right text-blue-400">
-            주말약국
-          </h1>
-        </div>
-      </header>
+      <Header />
       <div className="flex items-center justify-center">
         <div>
           <h1 className="pt-3 pb-5 mt-10 text-xl text-blue-500">
@@ -128,41 +112,3 @@ function Home() {
 }
 
 export default Home;
-
-// $(document).ready(async function () {
-//   let XY = await getLocation();
-
-//   await naver.maps.Service.reverseGeocode(
-//   {
-//   location: new naver.maps.LatLng(XY.lat, XY.lng),
-//   },
-//   function (status, response) {
-//   let result = response.result;
-//   let items = result.items;
-
-//   let sido_arr = items[0].addrdetail.sido.split(" "); // 시도
-//   let gugun_arr = items[0].addrdetail.sigugun.split(" "); // 시구군
-
-//   if (sido_arr.length == 1) {
-//   console.log("here comes");
-//   sido = sido_arr[0];
-//   gugun = gugun_arr[0];
-//   } else if (sido_arr.length > 1) {
-//   console.log("here!!!!!!!!!!!!");
-//   sido = gugun_arr[0];
-//   gugun = gugun_arr[1];
-//   }
-
-//   $.ajax({
-//   url: "/pharmacyList",
-//   type: "GET",
-//   cache: false,
-//   dataType: "json",
-//   data: {
-//   Q0: sido,
-//   Q1: gugun,
-//   QT: "1~8",
-//   QN: "",
-//   ORD: "",
-//   pageNo: "1",
-//   numOfRows: "1000",
