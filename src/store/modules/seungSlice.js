@@ -2,23 +2,27 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  number: [],
+  seung: [],
   isLoading: false,
   error: null,
 };
 
-export const __patchSeung = createAsyncThunk(
-  'seungSlice/patchCounter',
+export const __deleteSeung = createAsyncThunk(
+  'seungSlice/delete',
   async (payload, thunkAPI) => {
     console.log('안녕 ', payload);
-    const token = localStorage.getItem('token');
     try {
-      const data = await axios.get('https://chamchimayo.shop/users', payload, {
-        heders: {
-          'Content-Type': `application/json`,
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const data = await axios.delete(
+        `https://chamchimayo.shop/users/${payload.userNum}`,
+        {
+          headers: {
+            Authorization: `Bearrer ${payload.userNum}`,
+          },
+          headers: {
+            Authorization: `Bearrer ${payload.userId}, ${payload.password}`,
+          },
+        }
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -31,14 +35,16 @@ const seungSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__patchSeung.pending]: (state) => {
+    [__deleteSeung.pending]: (state) => {
       state.isLoading = true;
     },
-    [__patchSeung.fulfilled]: (state, action) => {
+    [__deleteSeung.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.number = action.payload;
+      state.seung = state.seung.filter((a) => {
+        return a.num !== action.payload;
+      });
     },
-    [__patchSeung.rejected]: (state, action) => {
+    [__deleteSeung.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     },
