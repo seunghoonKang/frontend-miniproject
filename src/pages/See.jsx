@@ -1,9 +1,9 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const See = () => {
-  axios.get('https://chamchimayo.shop/users/?userId=userId').then((res) => {
+  axios.get('https://chamchimayo.shop/users').then((res) => {
     console.log(res);
-    localStorage.setItem('token', res.data.token);
   });
   return (
     <div>
@@ -24,7 +24,7 @@ const See = () => {
               age
             </p>
             <button className="px-5 py-3 mt-3 text-lg text-white bg-blue-400 rounded-lg focus:outline-none hover:opacity-90">
-              Home
+              <Link to="/home">Home</Link>
             </button>
           </form>
         </div>
