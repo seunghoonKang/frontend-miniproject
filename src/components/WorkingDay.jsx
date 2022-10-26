@@ -25,7 +25,7 @@ const WorkingDay = ({ working }) => {
   return (
     <div className="mb-10 ">
       {today === 'Monday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             월요일
           </div>
@@ -37,7 +37,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Tuesday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             화요일
           </div>
@@ -49,7 +49,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Wednesday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             수요일
           </div>
@@ -61,7 +61,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Thursday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             목요일
           </div>
@@ -73,7 +73,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Friday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             금요일
           </div>
@@ -85,7 +85,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Saturday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             토요일
           </div>
@@ -97,7 +97,7 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Sunday' ? (
-        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+        <div className="w-full p-4 mb-4 bg-rose-400 rounded-2xl">
           <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             일요일
           </div>

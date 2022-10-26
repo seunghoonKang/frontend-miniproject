@@ -75,9 +75,9 @@ function Home() {
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-center">
-        <div>
-          <h1 className="pt-3 pb-5 mt-10 text-xl text-blue-500">
+      <div className="flex items-center justify-center font-bold w-full  ">
+        <div className=" w-[768px]">
+          <h1 className="pt-3 pb-5 mt-10 text-xl text-zinc-600">
             내 주변 약국
           </h1>
           {itemList.map((items) => (
@@ -86,14 +86,18 @@ function Home() {
                 onClick={() => {
                   navigater(`/detail/${items.hpid}`);
                 }}
-                className="px-4 pt-1 pb-2 text-blue-500 bg-blue-200 rounded-t-lg hover:bg-blue-300"
+                className="px-4 pt-1 pb-2 text-zinc-50 bg-rose-300 rounded-t-lg hover:bg-rose-400 hover:text-zinc-50 transition-all"
               >
                 {items.dutyName}
               </button>
-              <p className="pt-3 pb-3 pl-2 bg-blue-100">
-                약국위치 : {items.dutyAddr}{' '}
-              </p>
-              <p className="pt-3 pb-3 pl-2 bg-blue-100">{items.dutyTel1}</p>
+              <div className="pt-3 pb-3 pl-2 bg-zinc-100  rounded-md">
+                <div className=" pb-3">
+                  <p className="text-zinc-600">{items.dutyAddr} </p>
+                </div>
+                <div>
+                  <p className="text-zinc-400 text-sm">{items.dutyTel1}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
