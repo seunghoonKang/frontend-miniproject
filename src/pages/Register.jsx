@@ -12,7 +12,9 @@ const Register = () => {
   const regPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/; //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
 
+  const [checkRegister, setCheckRegister] = useState(false);
   const [checkCount, setCheckCount] = useState(0);
+  const [errCheck, setErrCheck] = useState();
   const [userRegister, setUserRegister] = useState({
     userId: '',
     password: '',
@@ -25,7 +27,13 @@ const Register = () => {
   const checkDuplicate = (e) => {
     e.preventDefault();
     setCheckCount(() => checkCount + 1);
-    console.log(checkCount);
+    console.log(userRegister.userId);
+    axios
+      .post(
+        'https://chamchimayo.shop/users/checkDuplicatedId',
+        userRegister.userId
+      )
+      .then((res) => console.log(res));
     userRegister.userId.trim() === ''
       ? alert('아이디를 입력해주세요')
       : userRegister.userId === '' //data.get userId 전체조회?
@@ -44,7 +52,10 @@ const Register = () => {
     if (checkCount === 0) {
       return alert('아이디 중복검사를 확인해주세요');
     } else {
-      axios.post('https://chamchimayo.shop/users/signup', userRegister);
+      axios
+        .post('https://chamchimayo.shop/users/signup', userRegister)
+        .then((res) => setErrCheck(res.data));
+      console.log(errCheck);
       //navigate('/');
     }
   };
@@ -234,7 +245,10 @@ const Register = () => {
         </div>
 
         <div className=" md:flex md:justify-center">
-          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-400 focus:shadow-outline focus:outline-none">
+          <button
+            className="px-4 py-2 font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-400 focus:shadow-outline focus:outline-none"
+            disabled={checkRegister}
+          >
             회원가입하기
           </button>
         </div>
