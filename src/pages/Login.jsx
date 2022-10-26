@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import axios from 'axios'; // axios import 합니다.
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const idRef = useRef('');
   const pwRef = useRef('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
@@ -37,16 +39,24 @@ const Login = () => {
             </div>
             <button
               onClick={(e) => {
+                if (idRef.current.value == '' || pwRef.current.value == '') {
+                  alert('내용을 입력해 주세요');
+                  return;
+                }
                 e.preventDefault();
                 const login = {
                   userId: idRef.current.value,
                   password: pwRef.current.value,
                 };
+
                 axios
                   .post('https://chamchimayo.shop/users/login', login)
                   .then((res) => {
-                    console.log(res.data.token);
+                    console.log(res.status);
                     localStorage.setItem('token', res.data.token);
+                    if (res.status === 200) {
+                      navigate('/home');
+                    }
                   });
               }}
               className="px-5 py-3 mt-3 text-lg text-white bg-blue-400 rounded-lg focus:outline-none hover:opacity-90"
