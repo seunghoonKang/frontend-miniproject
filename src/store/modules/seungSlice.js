@@ -7,11 +7,18 @@ const initialState = {
   error: null,
 };
 
-export const __getCounter = createAsyncThunk(
-  'seungSlice/getCounter',
+export const __patchSeung = createAsyncThunk(
+  'seungSlice/patchCounter',
   async (payload, thunkAPI) => {
+    console.log('안녕 ', payload);
+    const token = localStorage.getItem('token');
     try {
-      const data = await axios.get('http://localhost:3001/matjip');
+      const data = await axios.get('https://chamchimayo.shop/users', payload, {
+        heders: {
+          'Content-Type': `application/json`,
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -24,14 +31,14 @@ const seungSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__getCounter.pending]: (state) => {
+    [__patchSeung.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getCounter.fulfilled]: (state, action) => {
+    [__patchSeung.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.number = action.payload;
     },
-    [__getCounter.rejected]: (state, action) => {
+    [__patchSeung.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     },
