@@ -7,22 +7,6 @@ const Login = () => {
   const pwRef = useRef('');
   const navigate = useNavigate();
 
-  // const login = async () => {
-  //   try {
-  //       const res = await Api.post("http://localhost:8000/users/login", {
-  //           userId,
-  //           password,
-  //       });
-  //       //로그인이 완료되었을시, 조건문은 각자 서버응답에 맞게 설정
-  //       if (res.status === 200) {
-  //           //navagate 안에는 이동하고자하는 경로를 입력해준다.
-  //           navigate("/main");
-  //       }
-  //   } catch (e) {
-  //       console.log(e);
-  //       }
-  //   };
-
   return (
     <div>
       <div className="flex items-center justify-center h-screen bg-blue-400">

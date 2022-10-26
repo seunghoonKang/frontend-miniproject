@@ -27,12 +27,7 @@ function Home() {
       setMyLocation({ lat: 37.4979517, lng: 127.0276188 });
     } //에러 났을때 위치임
   }, []);
-  console.log(
-    'myLocation.lat',
-    myLocation.lat,
-    'myLocation.lng',
-    myLocation.lng
-  );
+
   useEffect(() => {
     const { naver } = window;
     async function reverseGeo() {
@@ -44,23 +39,19 @@ function Home() {
         function (status, response) {
           let result = response.result; // 결과 응답
           let items = result.items; //결과 아이템
-          console.log(items);
           let sido_arr = items[0].addrdetail.sido.split(' '); // 시도 (서울시) split으로 ''으로 쪼개면 충청북도 청주시
           let gugun_arr = items[0].addrdetail.sigugun.split(' '); // 시구군 (강남구)
           let sido = undefined; //시도는 언디파인 (그냥 빈값 처리한거임) else에 있기 때문에 귀찮아서 선언한거임
           let gugun = undefined; //구군 언디파인
           if (sido_arr.length == 1) {
             //충청북도[1] 청주시[2]이기 때문에 1보다 이상임
-            console.log('here comes'); //콘솔에다가 여기있다.
             sido = sido_arr[0]; //시도의 첫번쨰 내용 ex) 충청북도 청주시
             gugun = gugun_arr[0]; // 구군 첫번째 내용
-            console.log(sido, gugun); // 콘솔로그에 시도, 군이 나오도록 찍는다.
           } else if (sido_arr.length > 1) {
             // 그게 아니라면 1보다 크다면 시도에
             console.log('here!!!!!!!!!!!!');
             sido = gugun_arr[0]; //sido gugun_arr[0]를 넣음
             gugun = gugun_arr[1]; // gugu gugun_arr[1] 그거에 두번째 인덱스
-            console.log(sido, gugun); //시도랑 군을 찍는다.
           }
           if (status === naver.maps.Service.Status.ERROR) {
             alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰');
@@ -72,7 +63,6 @@ function Home() {
             .then((res) => {
               setItemList(res.data.items.item);
               // 이건 백엔드에서 준 서버야 ~
-              console.log(res.data.items);
             });
         }
       );
@@ -81,6 +71,7 @@ function Home() {
   }, [myLocation]); //위도 경도를 찾을때만 useEffectㅇ 실행
   // navigator.geolocation.getCurrentPosition(onGeoOkay, onGeoError);
   //state 에 넣어서 사용함 slecter에 데이터 넣어서 처리하는것도 가능함
+
   return (
     <div>
       <Header />

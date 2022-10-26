@@ -1,12 +1,6 @@
 import React from 'react';
-import { useRecoilValue, selector } from 'recoil';
-import { pharmacyWorking } from '../recoil/atom';
 
 const WorkingDay = ({ working }) => {
-  // const getitem = useRecoilValue(getPharmacy);
-  // console.log(getitem);
-  // const pharmacyWK = useRecoilValue(pharmacyWorking);
-
   const {
     dutyTime1c,
     dutyTime2c,
@@ -29,10 +23,10 @@ const WorkingDay = ({ working }) => {
   const today = moment().format('dddd');
 
   return (
-    <div className=" mb-10">
+    <div className="mb-10 ">
       {today === 'Monday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             월요일
           </div>
           <div className="text-base text-slate-50">
@@ -43,8 +37,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Tuesday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             화요일
           </div>
           <div className="text-base text-slate-50">
@@ -55,8 +49,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Wednesday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             수요일
           </div>
           <div className="text-base text-slate-50">
@@ -67,8 +61,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Thursday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             목요일
           </div>
           <div className="text-base text-slate-50">
@@ -79,8 +73,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Friday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             금요일
           </div>
           <div className="text-base text-slate-50">
@@ -91,8 +85,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Saturday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             토요일
           </div>
           <div className="text-base text-slate-50">
@@ -103,8 +97,8 @@ const WorkingDay = ({ working }) => {
         <></>
       )}
       {today === 'Sunday' ? (
-        <div className="rounded-2xl p-4 w-full mb-4 bg-blue-400">
-          <div className="text-sm font-bold mb-1 flex text-slate-50 ">
+        <div className="w-full p-4 mb-4 bg-blue-400 rounded-2xl">
+          <div className="flex mb-1 text-sm font-bold text-slate-50 ">
             일요일
           </div>
           <div className="text-base text-slate-50">
