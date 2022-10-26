@@ -1,5 +1,5 @@
 // atom.js
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 let loginState = atom({
   key: 'loginState',
