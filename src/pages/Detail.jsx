@@ -97,15 +97,14 @@ const Detail = () => {
 
   return (
     <div>
-      <Home />
-      <div className="w-full max-w-lg bg-slate-500 m-auto">
-        <div className=" sticky">
+      <div className="w-full max-w-lg m-auto bg-slate-500">
+        <div className="sticky ">
           <FiChevronLeft size="30" />
         </div>
         <section>
           <h1 className="text-2xl font-bold mb-4 mt-2.5">약국이름</h1>
           <NaverMapAPI />
-          <div className="text-sm mb-1">경기도 안양시리야 응답해</div>
+          <div className="mb-1 text-sm">경기도 안양시리야 응답해</div>
         </section>
         {test}
       </div>

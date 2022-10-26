@@ -7,6 +7,14 @@ const Login = () => {
   const pwRef = useRef('');
   const navigate = useNavigate();
 
+  // if (idRef == '' || pwRef == '') {
+  //   alert('내용을 입력해 주세요');
+  //   return;
+  // }
+  // if (idRef.current.trim() == '' || pwRef.current.trim() == '')
+  //   return alert('빈칸없이 채워주세요~');
+  // //현재 안넘어감
+
   return (
     <div>
       <div className="flex items-center justify-center h-screen bg-blue-400">
@@ -42,6 +50,9 @@ const Login = () => {
                   userId: idRef.current.value,
                   password: pwRef.current.value,
                 };
+                idRef.current.value = '';
+                pwRef.current.value = '';
+
                 axios
                   .post('https://chamchimayo.shop/users/login', login)
                   .then((res) => {
