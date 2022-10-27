@@ -6,11 +6,26 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+// 홈 화면
+export const __getSeung = createAsyncThunk(
+  'seungSlice/get',
+  async (payload, thunkAPI) => {
+    // console.log('안녕 ', payload[0]);
+    try {
+      const data =
+        await axios.get`https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}&QT=1~8&pageNo=1&numOfRows=1000`;
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
+// 로그인 삭제
 export const __deleteSeung = createAsyncThunk(
   'seungSlice/delete',
   async (payload, thunkAPI) => {
-    console.log('안녕 ', payload);
+    // console.log('안녕 ', payload);
     try {
       const data = await axios.delete(
         `https://chamchimayo.shop/users/${payload.userNum}`,
@@ -35,6 +50,18 @@ const seungSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [__getSeung.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getSeung.fulfilled]: (state, action) => {
+      // console.log(action.payload.items.item);
+      state.isLoading = false;
+      state.seung = action.payload.items.item;
+    },
+    [__getSeung.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.error;
+    },
     [__deleteSeung.pending]: (state) => {
       state.isLoading = true;
     },
