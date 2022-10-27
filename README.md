@@ -56,7 +56,6 @@
   - 발표
 
 <br/>
-
 ### 3) 사용 기술
 
 - FE: react, redux-toolkit, redux-thunk, react-router-dom, tailwind
