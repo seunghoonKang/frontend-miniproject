@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { __deleteSeung, __getSeung } from '../store/modules/seungSlice';
 
 function Home() {
-  const [itemList, setItemList] = useState([]);
+  // const [itemList, setItemList] = useState([]);
+
+  const dispatch = useDispatch();
+
   const [myLocation, setMyLocation] = useState({
     lat: 37.4979517,
     lng: 127.0276188,
@@ -54,16 +58,9 @@ function Home() {
             gugun = gugun_arr[1]; // gugu gugun_arr[1] 그거에 두번째 인덱스
           }
           if (status === naver.maps.Service.Status.ERROR) {
-            alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰');
-          } //주소 잘못요청하면 서버에 오류가 뜰 경우에는 이렇게 뜸
-          axios
-            .get(
-              `https://chamchimayo.shop/pharmacyList?Q0=${sido}&Q1=${gugun}&QT=1~8&pageNo=1&numOfRows=1000`
-            )
-            .then((res) => {
-              setItemList(res.data.items.item);
-              // 이건 백엔드에서 준 서버야 ~
-            });
+            alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰'); //주소 잘못요청하면 서버에 오류가 뜰 경우에는 이렇게 뜸
+          }
+          dispatch(__getSeung([sido, gugun]));
         }
       );
     }
@@ -72,30 +69,40 @@ function Home() {
   // navigator.geolocation.getCurrentPosition(onGeoOkay, onGeoError);
   //state 에 넣어서 사용함 slecter에 데이터 넣어서 처리하는것도 가능함
 
+  const { isLoading, error, seung } = useSelector((state) => state.seung);
+
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-center font-bold w-full  ">
+      <div className="flex items-center justify-center w-full font-bold ">
         <div className=" w-[768px]">
           <h1 className="pt-3 pb-5 mt-10 text-xl text-zinc-600">
             내 주변 약국
           </h1>
-          {itemList.map((items) => (
-            <div key={items.hpid} className="pb-8">
+          {seung.map((item) => (
+            <div key={item.rnum} className="pb-8">
               <button
                 onClick={() => {
-                  navigater(`/detail/${items.hpid}`);
+                  navigater(`/detail/${item.hpid}`);
                 }}
-                className="px-4 pt-1 pb-2 text-zinc-50 bg-rose-300 rounded-t-lg hover:bg-rose-400 hover:text-zinc-50 transition-all"
+                className="px-4 pt-1 pb-2 transition-all rounded-t-lg text-zinc-50 bg-rose-300 hover:bg-rose-400 hover:text-zinc-50"
               >
-                {items.dutyName}
+                {item.dutyName}
               </button>
-              <div className="pt-3 pb-3 pl-2 bg-zinc-100  rounded-md">
-                <div className=" pb-3">
-                  <p className="text-zinc-600">{items.dutyAddr} </p>
+              <div className="pt-3 pb-3 pl-2 rounded-md bg-zinc-100">
+                <div className="pb-3 ">
+                  <p className="text-zinc-600">{item.dutyAddr} </p>
                 </div>
                 <div>
-                  <p className="text-zinc-400 text-sm">{items.dutyTel1}</p>
+                  <p className="text-sm text-zinc-400">{item.dutyTel1}</p>
                 </div>
               </div>
             </div>
