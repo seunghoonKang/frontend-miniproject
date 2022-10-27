@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+# 💊 약꾹루트(BE)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](https://user-images.githubusercontent.com/98001726/198161841-e1ff49bd-0239-4684-959b-86a1b4bd0372.png)
 
-## Available Scripts
+### 약국을 꾹 눌러서 약국 위치를 찾아주는 서비스!
 
-In the project directory, you can run:
+> 약꾹 루트는 현위치를 기준으로 근처 약국의 정보와 영업여부를 알려줍니다.
 
-### `yarn start`
+<br/>
+🔗 관련 링크
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [FE Github](https://github.com/seunghoonKang/frontend-miniproject)
+- [S.A](https://fog-cyclone-297.notion.site/3-SA-a0dcbb8473a04a219b3d0a51f0b19e4a)
+- [유튜브]()
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br/>
 
-### `yarn test`
+### 1) 팀원
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| 포지션       | 이름   | 이메일               | 깃헙 주소                        |
+| ------------ | ------ | -------------------- | -------------------------------- |
+| Frontend, VL | 강승훈 | tmdgns4321@gmail.com | https://github.com/seunghoonKang |
+| Backend      | 박대현 | bdh407@naver.com     | https://github.com/qkreo         |
+| Frontend     | 박하은 | haha2000ab@gmail.com | https://github.com/parkharoi     |
+| Backend, L   | 백지영 | bazzy726@gmail.com   | https://github.com/chamchimayo   |
+| Backend      | 장민영 | bree.j117@gmail.com  | https://github.com/minyoung117   |
 
-### `yarn build`
+<br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2) 진행 기간: 2022년 10월 21일 ~ 10월 27일
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **10월 21일(프로젝트 시작일)**
+  - 개발 기획
+  - S,A 제출(API 명세서, 와이어 프레임, DB Schema 작성)
+  - Github Repository 생성
+- **10월 22일**
+  - 프론트(로컬)-백 연결 - 회원가입, 로그인 테스트 완료
+  - [FE] : 회원가입, 로그인 형태 구현, json 서버 연결
+  - [BE] : users(회원가입, 로그인), reviews 기능 구현 완료 , 공공 API 데이터 불러오기 완료
+- **10월 23일(일요일)**
+  - 즐거운 휴식 !
+- **10월 24일**
+  - 프론트(서버)-백 연결 테스트
+  - [FE] : 회원가입, 로그인 완성
+  - [BE] : users(회원 정보 조회, 수정, 삭제(탈퇴)) 기능 구현, ssl 인증 발급 완료
+- **10월 25일**
+  - [FE] : 약국 전체 목록 페이지 완성
+  - [BE] : users(비밀번호 암호화), likes(약국 좋아요 관련) 기능 구현 완료
+- **10월 26일**
+  - [FE] : 약국 상세 페이지 완성
+  - [BE] : reviews(리뷰 조회) 기능 추가
+- **10월 27일(프로젝트 마감일)**
+  - [FE] : 회원 CRUD 완성
+  - [BE] : users(회원 정보 수정, 삭제(탈퇴)) 오류 수정
+  - README 작성, 영상 촬영
+  - 발표
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br/>
 
-### `yarn eject`
+### 3) 사용 기술
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- FE: react, redux-toolkit, redux-thunk, react-router-dom, tailwind
+- 와이어프레임 : 피그마
+- 서버: javascript, express
+- API 명세: swagger
+- DB: mysql, sequelize
+- 배포: AWS EC2
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4) 화면 구성
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br/>
 
-## Learn More
+### 5) ERD
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://user-images.githubusercontent.com/98001726/198181259-bc0798c7-5f4e-437f-9b70-6057a2fa448d.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br/>
 
-### Code Splitting
+### 6) 주요 기능 요약
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+(1) 회원 가입
 
-### Analyzing the Bundle Size
+- 아이디, 비밀번호가 정해진 조건에 맞지 않는 경우 에러 메세지를 response에 포함시킨다.**(Joi 사용)**
+- 비밀번호는 암호화 되어 데이터베이스에 저장돼야 한다.**(bcrypt 사용)**
+- 회원에 동일한 아이디가 있을 시 "이미 존재하는 아이디입니다."라는 에러 메세지를 response에 포함시킨다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+(2) 로그인
 
-### Making a Progressive Web App
+- 받은 비밀번호를 암호화하여 데이터베이스에 있는 비밀번호와 비교한다.
+- 로그인시 **jwt(json web token)** 발급해준다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+(3) 로그인 검사
 
-### Advanced Configuration
+- 로그인이 필요한 API를 호출한 경우 로그인 토큰을 전달한 경우만 정상 response를 전달받을 수 있도록 한다.
+- 로그인 토큰을 전달하지 않은 채로 로그인 API를 호출한 경우 "로그인이 필요합니다."라는 에러 메세지를 response에 포함시킨다.
+- 로그인 토큰을 전달한 채로 로그인 API 또는 회원가입 API를 호출한 경우 "이미 로그인이 되어있습니다"라는 에러 메세지를 response에 포함시킨다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+(4) 회원 정보 조회
 
-### Deployment
+- 로그인한 회원은 자신의 정보를 조회할 수 있다.
+- 수정하기 버튼을 눌러 자신의 닉네임을 변경할 수 있다.
+- 탈퇴하기 버튼을 눌러 회원 탈퇴를 할 수 있다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+(5) 메인(약국 목록)
 
-### `yarn build` fails to minify
+- 사용자 위치 확인 동의를 받는다.
+- 사용자 위치 확인 동의를 받기 전에는 공공 API에서 선택한 임의의 약국 목록들을 보여준다.
+- 사용자 위치 확인 동의를 받은 후에는 사용자 위치 근처의 약국 목록들을 보여준다.
+- 약국 이름을 클릭하면 해당 약국의 상세페이지로 이동한다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+(6) 약국 상세 페이지
+
+- 해당 약국의 위치를 **네이버 맵 API**로 보여준다.
+- 해당 약국의 정보와 오늘 영업 시간을 보여준다.
+- 전체 시간 보기를 클릭하면 모든 요일의 영업 시간을 보여준다.
+
+(7) 약국리뷰
+
+- 사용자는 약국 상세페이지에서 해당 약국의 리뷰를 달 수 있다.
+- 리뷰는 로그인한 유저만 달 수 있다.
+- 리뷰 수정, 삭제는 해당 리뷰의 작성자만 할 수 있다.
+
+(8) 약국 좋아요
+
+- 사용자는 좋아요와 좋아요 취소를 할 수 있다.
+- API호출시 약국(Pharmacy) 테이블의 "약국 좋아요 수(likes)"에 결과를 반영시킨다.
+  (좋아요 - 1증가, 좋아요 취소 - 1감소)
+- 사용자는 자신이 좋아요한 약국들을 최근 좋아요를 한 순으로 모아볼 수 있다.
