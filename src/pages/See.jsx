@@ -16,7 +16,7 @@ const See = () => {
       },
     })
     .then((res) => setWorking(res.data.getUser));
-
+  // console.log(working);
   return (
     <div>
       <Header />
