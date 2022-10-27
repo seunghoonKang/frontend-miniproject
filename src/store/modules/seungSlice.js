@@ -10,7 +10,7 @@ const initialState = {
 export const __getSeung = createAsyncThunk(
   'seungSlice/get',
   async (payload, thunkAPI) => {
-    console.log('안녕 ', payload[0], payload[1]);
+    // console.log('안녕 ', payload[0], payload[1]);
     try {
       const data = await axios.get(
         `https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}`
@@ -26,20 +26,16 @@ export const __getSeung = createAsyncThunk(
 export const __deleteSeung = createAsyncThunk(
   'seungSlice/delete',
   async (payload, thunkAPI) => {
-    // console.log('안녕 ', payload);
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     try {
-      const data = await axios.delete(
-        `https://chamchimayo.shop/users/${payload.userNum}`,
-        {
-          headers: {
-            Authorization: `Bearrer ${payload.userNum}`,
-          },
-          headers: {
-            Authorization: `Bearrer ${payload.userId}, ${payload.password}`,
-          },
-        }
+      const { data } = await axios.delete(
+        `https://chamchimayo.shop/users/${payload.userId}`,
+        { headers }
       );
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -69,9 +65,7 @@ const seungSlice = createSlice({
     },
     [__deleteSeung.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.seung = state.seung.filter((a) => {
-        return a.num !== action.payload;
-      });
+      window.location.href = '/';
     },
     [__deleteSeung.rejected]: (state, action) => {
       state.isLoading = false;
