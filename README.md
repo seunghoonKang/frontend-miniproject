@@ -1,4 +1,4 @@
-# 💊 약꾹루트(BE)
+# 💊 약꾹루트(FE)
 
 ![image](https://user-images.githubusercontent.com/98001726/198161841-e1ff49bd-0239-4684-959b-86a1b4bd0372.png)
 
@@ -56,6 +56,7 @@
   - 발표
 
 <br/>
+
 ### 3) 사용 기술
 
 - FE: react, redux-toolkit, redux-thunk, react-router-dom, tailwind

@@ -53,7 +53,7 @@ const Register = () => {
         .post('https://chamchimayo.shop/users/signup', userRegister)
         .then((res) => {
           if (res.status === 201) {
-            alert(res.data);
+            alert(res.data.message);
             navigate('/');
           }
         })
