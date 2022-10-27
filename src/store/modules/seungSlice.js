@@ -10,10 +10,11 @@ const initialState = {
 export const __getSeung = createAsyncThunk(
   'seungSlice/get',
   async (payload, thunkAPI) => {
-    // console.log('안녕 ', payload[0]);
+    console.log('안녕 ', payload[0], payload[1]);
     try {
-      const data =
-        await axios.get`https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}&QT=1~8&pageNo=1&numOfRows=1000`;
+      const data = await axios.get(
+        `https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}`
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -54,9 +55,10 @@ const seungSlice = createSlice({
       state.isLoading = true;
     },
     [__getSeung.fulfilled]: (state, action) => {
-      // console.log(action.payload.items.item);
+      console.log(action.payload);
       state.isLoading = false;
       state.seung = action.payload.items.item;
+      console.log(state.seung);
     },
     [__getSeung.rejected]: (state, action) => {
       state.isLoading = false;
