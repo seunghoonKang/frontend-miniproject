@@ -17,10 +17,9 @@ const Header = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setNickname(res.data.getUser.nickname));
+        .then((res) => setNickname(res.data.getUser));
     }
   }, []);
-
   const loginHandler = () => {
     navigate('/');
   };
@@ -31,12 +30,12 @@ const Header = () => {
   };
 
   const goToUserDetail = () => {
-    navigate('/see');
+    navigate(`/see/${nickName.userNum}`);
   };
-  //flex flex-col justify-center w-[99%] h-32 m-1.5 border-solid border-[1px] rounded-md border-gray-400
+
   return (
-    <header className=" w-full   ">
-      <div className="flex justify-around border-solid border-b-[2px]  ">
+    <header className=" w-full max-w-full ">
+      <div className="flex justify-around border-solid border-b-[2px] flex-wrap ">
         <div className="flex py-[15px]">
           <button onClick={() => navigate('/home')}>
             <img src={logoImage} className=" max-w-[30%]" />
@@ -47,10 +46,10 @@ const Header = () => {
         </div>
         <div className="flex justify-center items-center">
           {loginState ? (
-            <div className=" py-8 text-ml font-bold flex">
+            <div className=" py-8 text-ml font-bold flex flex-wrap">
               <div className=" mr-10">
-                <span className=" text-rose-300">{nickName}님</span>, 반갑습니다
-                😎{' '}
+                <span className=" text-rose-300">{nickName.nickname}님</span>,
+                반갑습니다 😎{' '}
               </div>
               <div
                 onClick={goToUserDetail}
