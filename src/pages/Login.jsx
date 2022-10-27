@@ -1,17 +1,15 @@
 import React, { useRef } from 'react';
 import axios from 'axios'; // axios import 합니다.
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const idRef = useRef('');
   const pwRef = useRef('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
     <div>
-      <div className="flex items-center justify-center h-screen bg-blue-400">
+      <div className="flex items-center justify-center h-screen bg-rose-300">
         <div className="bg-white w-full max-w-lg py-10 rounded-lg text-center text-center>">
           <h3 className="text-3xl text-gray-800">Log In</h3>
           <form className="flex flex-col px-5 mt-5">
@@ -31,7 +29,7 @@ const Login = () => {
                 <p className="container mx-auto">회원이 아니신가요?</p>
               </div>
 
-              <div className="mx-3 text-blue-600">
+              <div className="mx-3 text-rose-600">
                 <button onClick={() => navigate('/register')}>
                   회원가입 하기
                 </button>
@@ -59,7 +57,7 @@ const Login = () => {
                     }
                   });
               }}
-              className="px-5 py-3 mt-3 text-lg text-white bg-blue-400 rounded-lg focus:outline-none hover:opacity-90"
+              className="px-5 py-3 mt-3 text-lg text-white rounded-lg bg-rose-400 focus:outline-none hover:opacity-90"
             >
               Log In
             </button>

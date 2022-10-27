@@ -66,9 +66,9 @@ const Register = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center h-screen ">
-      <h1 className="mb-6 text-5xl font-bold text-blue-500 ">회원가입</h1>
-      <form onSubmit={onSubmitHandler} className="w-full max-w-lg">
+    <section className="flex flex-col items-center justify-center h-screen bg-rose-200 ">
+      <h1 className="mb-6 text-5xl font-bold text-rose-500 ">회원가입</h1>
+      <form onSubmit={onSubmitHandler} className="w-full max-w-lg bg-rose-200">
         {/* 아이디 */}
         {/* 서버에 동일한 아이디가 있는지 확인해야돼 */}
         <div className="flex flex-wrap justify-between mb-6 -mx-3">
@@ -97,7 +97,7 @@ const Register = () => {
               type="button"
               value={checkCount}
               onClick={checkDuplicate}
-              className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2.5 px-4 rounded"
+              className="shadow bg-rose-500 hover:bg-rose-400 focus:shadow-outline focus:outline-none text-white font-bold py-2.5 px-4 rounded"
             >
               중복검사
             </button>
@@ -251,7 +251,7 @@ const Register = () => {
 
         <div className=" md:flex md:justify-center">
           <button
-            className="px-4 py-2 font-bold text-white bg-blue-500 rounded shadow hover:bg-blue-400 focus:shadow-outline focus:outline-none"
+            className="px-4 py-2 font-bold text-white rounded shadow bg-rose-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none"
             disabled={checkRegister}
           >
             회원가입하기
