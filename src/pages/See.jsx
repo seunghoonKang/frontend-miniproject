@@ -1,36 +1,49 @@
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { __deleteSeung } from '../store/modules/seungSlice';
+import { __modifyUserInfo, __getUserInfo } from '../store/modules/hoonSlice';
 
 const See = () => {
-  const token = localStorage.getItem('token');
-  const [working, setWorking] = useState('');
   const [isEdit, setIsEdit] = useState(false);
   const [modifyNickName, setModifyNickName] = useState('');
+  const nicknameRef = useRef();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get(`https://chamchimayo.shop/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setWorking(res.data.getUser));
-  }, []);
+  const getUser = useSelector((state) => state.hoon.user);
 
   useEffect(() => {
-    setModifyNickName(working.nickname);
-  }, [working]);
+    dispatch(__getUserInfo());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setModifyNickName(getUser.nickname);
+  }, [getUser]);
+
+  useEffect(() => {
+    if (nicknameRef.current) {
+      const end = nicknameRef.current.value.length;
+      nicknameRef.current.setSelectionRange(end, end);
+      nicknameRef.current.focus();
+    }
+  }, [isEdit]);
 
   const onEditBtn = () => {
     setIsEdit(true);
   };
 
   const onCancleBtn = () => {
+    setIsEdit(false);
+    setModifyNickName(getUser.nickname);
+  };
+
+  const onCompleteBtn = () => {
+    dispatch(
+      __modifyUserInfo({
+        ...getUser,
+        nickname: modifyNickName,
+      })
+    );
     setIsEdit(false);
   };
 
@@ -42,35 +55,42 @@ const See = () => {
           <h3 className="text-3xl text-gray-800">회원정보 보기</h3>
           <form className="flex flex-col px-5 mt-5">
             <p className="px-5 py-3 mb-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600">
-              ID : {working.userId}
+              ID : {getUser.userId}
             </p>
             {!isEdit ? (
               <p className="px-5 py-3 mb-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600">
-                닉네임 : {working.nickname}
+                닉네임 : {getUser.nickname}
               </p>
             ) : (
-              <input
-                type="text"
-                name="modifyNickName"
-                value={modifyNickName}
-                onChange={(e) => {
-                  setModifyNickName(e.target.value);
-                }}
-                className="px-5 py-3 mb-3 bg-rose-300 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-rose-600 text-center"
-              ></input>
+              <>
+                <input
+                  type="text"
+                  name="modifyNickName"
+                  ref={nicknameRef}
+                  value={modifyNickName}
+                  maxLength="20"
+                  onChange={(e) => {
+                    setModifyNickName(e.target.value);
+                  }}
+                  className="px-5 py-3 mb-3 bg-violet-500 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-violet-100 text-center text-stone-200"
+                ></input>
+                <p className="text-xs italic text-violet-500 text-left mb-3">
+                  최대 20자까지 가능합니다
+                </p>
+              </>
             )}
 
             <p className="px-5 py-3 mb-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600">
-              성별 : {working.gender}
+              성별 : {getUser.gender}
             </p>
             <p className="px-5 py-3 mb-3 bg-gray-100 border-2 rounded-lg shadow-inner focus:outline-none focus:border-opacity-50 focus:border-green-600">
-              나이 : {working.age}
+              나이 : {getUser.age}
             </p>
           </form>
           {!isEdit ? (
             <>
               <button
-                onClick={() => dispatch(__deleteSeung(working))}
+                onClick={() => dispatch(__deleteSeung())}
                 className="py-3 mt-3 mr-5 text-lg text-white rounded-lg bg-rose-400 px-7 focus:outline-none hover:opacity-90"
               >
                 회원 탈퇴
@@ -79,19 +99,22 @@ const See = () => {
                 onClick={onEditBtn}
                 className="px-3 py-3 mt-3 ml-5 text-lg text-white rounded-lg bg-sky-400 focus:outline-none hover:opacity-90"
               >
-                회원정보 수정
+                닉네임 바꾸기
               </button>
             </>
           ) : (
             <>
               <button
                 onClick={onCancleBtn}
-                className="py-3 mt-3 mr-5 text-lg text-white bg-blue-500 rounded-lg px-7 focus:outline-none hover:opacity-90"
+                className="py-3 mt-3 mr-5 text-lg text-white bg-blue-400 rounded-lg px-7 focus:outline-none hover:opacity-90"
               >
-                취소
+                뒤로 가기
               </button>
-              <button className="px-3 py-3 mt-3 ml-5 text-lg text-white bg-blue-500 rounded-lg focus:outline-none hover:opacity-90">
-                수정완료
+              <button
+                onClick={onCompleteBtn}
+                className="py-3 mt-3 ml-5 text-lg text-white bg-rose-400 rounded-lg px-7 focus:outline-none hover:opacity-90"
+              >
+                수정 완료
               </button>
             </>
           )}
