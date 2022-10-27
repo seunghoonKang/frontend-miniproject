@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logoImage from '../img/logo.png';
-import axios from 'axios';
+import { __getUserInfo } from '../store/modules/hoonSlice';
 
 const Header = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const [loginState, setLoginState] = useState(false);
-  const [nickName, setNickname] = useState('00님');
+  const dispatch = useDispatch();
+
+  const getUser = useSelector((state) => state.hoon.user);
+
   useEffect(() => {
     if (token) {
       setLoginState(true);
-      axios
-        .get(`https://chamchimayo.shop/users`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => setNickname(res.data.getUser));
+      dispatch(__getUserInfo());
     }
   }, []);
+
   const loginHandler = () => {
     navigate('/');
   };
@@ -30,7 +29,7 @@ const Header = () => {
   };
 
   const goToUserDetail = () => {
-    navigate(`/see/${nickName.userNum}`);
+    navigate(`/see/${getUser.userNum}`);
   };
 
   return (
@@ -48,7 +47,7 @@ const Header = () => {
           {loginState ? (
             <div className=" py-8 text-ml font-bold flex flex-wrap">
               <div className=" mr-10">
-                <span className=" text-rose-300">{nickName.nickname}님</span>,
+                <span className=" text-rose-300">{getUser.nickname}님</span>,
                 반갑습니다 😎{' '}
               </div>
               <div
