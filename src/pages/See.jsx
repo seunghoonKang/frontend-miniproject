@@ -20,7 +20,7 @@ const See = () => {
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-center h-screen bg-blue-400">
+      <div className="flex items-center justify-center h-screen bg-rose-300">
         <div className="bg-white w-full max-w-lg py-10 rounded-lg text-center text-center>">
           <h3 className="text-3xl text-gray-800">회원정보 보기</h3>
           <form className="flex flex-col px-5 mt-5">
@@ -39,11 +39,11 @@ const See = () => {
           </form>
           <button
             onClick={() => dispatch(__deleteSeung(working))}
-            className="py-3 mt-3 mr-5 text-lg text-white bg-red-500 rounded-lg px-7 focus:outline-none hover:opacity-90"
+            className="py-3 mt-3 mr-5 text-lg text-white rounded-lg bg-rose-400 px-7 focus:outline-none hover:opacity-90"
           >
             회원 탈퇴
           </button>
-          <button className="px-3 py-3 mt-3 ml-5 text-lg text-white bg-blue-500 rounded-lg focus:outline-none hover:opacity-90">
+          <button className="px-3 py-3 mt-3 ml-5 text-lg text-white rounded-lg bg-sky-400 focus:outline-none hover:opacity-90">
             회원정보 수정
           </button>
         </div>
