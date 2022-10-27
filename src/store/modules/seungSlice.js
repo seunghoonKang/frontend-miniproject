@@ -12,8 +12,9 @@ export const __getSeung = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log('안녕 ', payload[0]);
     try {
-      const data =
-        await axios.get`https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}&QT=1~8&pageNo=1&numOfRows=1000`;
+      const data = await axios.get(
+        `https://chamchimayo.shop/pharmacyList?Q0=${payload[0]}&Q1=${payload[1]}`
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
