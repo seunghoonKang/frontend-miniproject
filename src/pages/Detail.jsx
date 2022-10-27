@@ -1,26 +1,31 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import NaverMapAPI from '../components/NaverMap';
 import WholeDay from '../components/WholeDay';
 import WorkingDay from '../components/WorkingDay';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [working, setWorking] = useState('');
   const [isShow, setIsShow] = useState(false);
-  //const setpharmacyWK = useSetRecoilState(pharmacyWorking);
+  const { isLoading } = useSelector((state) => state.seung);
 
   //약국 한 개 가져오기
   useEffect(() => {
     axios
       .get(`https://chamchimayo.shop/pharmacyList/${id}`)
       .then((res) => setWorking(res.data.item));
-    //setpharmacyWK(working);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>

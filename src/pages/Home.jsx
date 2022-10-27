@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { __deleteSeung, __getSeung } from '../store/modules/seungSlice';
+import Loading from '../components/Loading';
 
 function Home() {
   // const [itemList, setItemList] = useState([]);
@@ -60,6 +61,7 @@ function Home() {
           if (status === naver.maps.Service.Status.ERROR) {
             alert('서버에 오류가 있어요. 다음에 다시 시도해주세요😰'); //주소 잘못요청하면 서버에 오류가 뜰 경우에는 이렇게 뜸
           }
+          console.log(sido, gugun);
           dispatch(__getSeung([sido, gugun]));
         }
       );
@@ -72,7 +74,7 @@ function Home() {
   const { isLoading, error, seung } = useSelector((state) => state.seung);
 
   if (isLoading) {
-    return <div>로딩 중....</div>;
+    return <Loading />;
   }
 
   if (error) {
